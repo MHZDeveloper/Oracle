@@ -138,28 +138,28 @@ Autrement dit, le développeur déclare qu’une lecture va être suivie d’une
 | :----: | :----: |:----:|:----:|
 | t0| ``` SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem');``` ||Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed' ou 'Hichem' en affichant seulement les colones ENAME et SAL de la Table EMP|
 | t1| ``` UPDATE EMP SET SAL = 4000 WHERE ENAME ='Hichem'; ``` |------|Le Salaire (SAL) de Hichem sera modifié à 4000, toute fois, sans commit, les modification ne sont pas prise en compte|
-| t2| ------ |```SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;```|------|
-| t3| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem');```|------|
-| t4| ------ |```UPDATE EMP SET SAL = 3800 WHERE ENAME ='Mohamed';```|------|
-| t5| ```Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,COMM,DEPTNO) values ('9999','Maaoui','Magician',null,to_date('17/02/2021','DD/MM/RR'),null,'10');``` |------|------|
-| t6| ```COMMIT;```|------ |------|
-| t7|```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```| ------ |------|
-| t8| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|------|
-| t9| ```Commit;``` |------|------|
-| t10|```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```| ------ |------|
-| t11| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|------|
-| t12| ------ | ```COMMIT;```|------|
-| t13| ``` UPDATE EMP SET SAL = 5000 WHERE ENAME ='Maaoui'; ``` |------|------|
-| t14| ------ |```SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;```|------|
-| t15| ------ |```UPDATE EMP SET SAL = 5200 WHERE ENAME ='Maaoui';```|------|
-| t16| ```COMMIT;``` |------|------|
-| t17| ------ |```ROLLBACK;```|------|
-| t18| ------ |```SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;```|------|
-| t19| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|------|
-| t20| ``` UPDATE EMP SET SAL = 5200 WHERE ENAME ='Maaoui'; ``` |------|------|
-| t21| ```COMMIT;``` |------|------|
-| t22| ------ | ```COMMIT;```|------|
-| t23| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|------|
+| t2| ------ |```SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;```|Garantit une isolation totale des requêtes|
+| t3| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem');```|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed' ou 'Hichem' en affichant seulement les colones ENAME et SAL de la Table EMP|
+| t4| ------ |```UPDATE EMP SET SAL = 3800 WHERE ENAME ='Mohamed';```|Modifie le salaire (SAL) de 'Mohamed' et le rends = à 3800, sans prise en compte de cette modification suite à l'absence de commande "commit;"|
+| t5| ```Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,COMM,DEPTNO) values ('9999','Maaoui','Magician',null,to_date('17/02/2021','DD/MM/RR'),null,'10');``` |------|Le nouveau employé nommé Maaoui, numéro 9999, sera ajouté à la liste des employées en tant que 'mAgIciAn'!! mais, cet ajout ne sera pas prit en compte tant qu'il n'y a pas de "commit;|
+| t6| ```COMMIT;```|------ |L'insertion en t5 sera prise en compte|
+| t7|```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```| ------ |Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP au CLI du user1|
+| t8| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP au CLI du user2|
+| t9| ```Commit;``` |------|Commit inutile|
+| t10|```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```| ------ |Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP au CLI du user1|
+| t11| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP au CLI du user2|
+| t12| ------ | ```COMMIT;```|La modification du salaire de 'Mohamed' sera prise en compte, ainsi, son salaire deviendra = 3800|
+| t13| ``` UPDATE EMP SET SAL = 5000 WHERE ENAME ='Maaoui'; ``` |------|Modifie le salaire (SAL) de 'Maaoui' de NULL à 5000, sans prise en compte de cette modification suite à l'absence de commande "commit;"|
+| t14| ------ |```SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;```|Garantit une isolation totale des requêtes|
+| t15| ------ |```UPDATE EMP SET SAL = 5200 WHERE ENAME ='Maaoui';```|Aucun changement suite au vérroue imposé par l'user1 lors de son changement du salaire de l'employé 'Maaoui'|
+| t16| ```COMMIT;``` |------|Commit du changement du salaire de 'Maaoui', ainsi, le Dévérouillage d'accès à cet donnée|
+| t17| ------ |```ROLLBACK;```|Nous ramène au résultat obtenu par t13 où 'Maaoui' a un résultat = 5000|
+| t18| ------ |```SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;```|Garantit une isolation totale des requêtes|
+| t19| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP|
+| t20| ``` UPDATE EMP SET SAL = 5200 WHERE ENAME ='Maaoui'; ``` |------|Modification du salaire de 'Maaoui' sans réel changement suite à l'absence du "commit;"|
+| t21| ```COMMIT;``` |------|La modification du salaire de 'Maaoui' sera prise en compte, ainsi, son salaire deviendra = 5200|
+| t22| ------ | ```COMMIT;```|Commit inutile|
+| t23| ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP|
 
 
 
