@@ -122,7 +122,7 @@ Autrement dit, le développeur déclare qu’une lecture va être suivie d’une
 | t3 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem');```|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed' ou 'Hichem' en affichant seulement les colones ENAME et SAL de la Table EMP|
 | t4 | ------ |```UPDATE EMP SET SAL = 3800 WHERE ENAME ='Mohamed';```|Le Salaire (SAL) de Mohamed sera modifié à 3800, toute fois, sans commit, les modification ne sont pas prise en compte|
 | t5 | ```Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,COMM,DEPTNO) values ('9999','Maaoui','Magician',null,to_date('17/02/2021','DD/MM/RR'),null,'10');``` |------|Le nouveau employé nommé Maaoui, numéro 9999, sera ajouté à la liste des employées en tant que 'mAgIciAn'!! mais, cet ajout ne sera pas prit en compte tant qu'il n'y a pas de "commit;"|
-| t6 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP|
+| t6 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```||
 | t7 | ------ |```UPDATE EMP SET SAL = 5000 WHERE ENAME ='Hichem';```|------|
 | t8 | ```Commit;``` |------|------|
 | t9 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|------|
