@@ -84,8 +84,8 @@ Biensûr, lorsqu'on parle de gestion de conccurence entre plusieurs transactions
 | :----: | :----: |:----:|:----:|
 | t0 | ``` SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem');``` ||selection du salaire de Mohamed et Hichem a partir de la table EMP|
 | t1 | ``` UPDATE EMP SET SAL = 4000 WHERE ENAME ='Hichem'; ``` |------|dans le table EMP la modéfication est effectué le salaire du Hichem est devenu 4000|
-| t2 | ------ |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```||dans le table EMP on a ajouté 1000 au salaire du Mohamed
-| t3 | ```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```|pas de changement car on n'a pas fait la commande commit dans le user 2 |
+| t2 | ------ |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```|dans le table EMP on a ajouté 1000 au salaire du Mohamed|
+| t3 | ```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```| |pas de changement car on n'a pas fait la commande commit dans le user 2 |
 | t4 | ------ |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Hichem';```|La session 1 va detecter l'interblocage |
 | t5 | ```Commit;``` |------| Session 2: --> 1 row updated.|
 | t6  |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```| ------|pas de changement car on n'a pas utiliser la commande commit|
