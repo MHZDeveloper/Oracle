@@ -87,10 +87,10 @@ Biensûr, lorsqu'on parle de gestion de conccurence entre plusieurs transactions
 | t2 | ------ |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```|Le Salaire de Mohamed va augmenter de 1000, ainsi passant de 2000 à 3000, toute fois, sans commit, les modification ne sont pas prise en compte |
 | t3 | ```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```||Aucun résultat car la dernière requete update exécuté par User2 n'a pas étée 'committed'|
 | t4 | ------ |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Hichem';```|La session 1 va detecter l'interblocage / Avec affichage du message d'erreur :"deadlock detected while waiting for resource" à l'interface du User1|
-| t5 | ```Commit;``` |------| Session 2: --> 1 row updated.|
-| t6  |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```| ------|------|
-| t7 | ```Commit;```| ------ | --------|
-| t8 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|------|
+| t5 | ```Commit;``` |------| Session 2: --> 1 row updated, Le salaire de 'Mohamed' va ainsi passer de 3000 à 4000 grâce à la requete ecrite à la 3eme ligne du tableau (t3) au CLI du 'user1'|
+| t6  |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```| ------|La requête ne sera pas exécutée en premier lieux et un autre interblocage aura lieux car, la permission de changement de table vien de passer à l'user2 avec que l'user1 ait mit la commande "commit;", par ailleurs, afin de poursuivre le traitement, on y ajoutera une commande "commit;" au CLI du 2ème utilisateur, ainsi, débloquer la modification que l'user1 veut y apporter.|
+| t7 | ```Commit;```| ------ | La modification du salaire de 'Mohamed' sera prise en compte, et il passera ainsi de 4000 à 5000 en SAL.|
+| t8 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|Renvoie à tableau à 2 colonnes, ENAME et SAL, contenant les nom/salaires respectives de 'Mohamed' et 'Hichem' tel que 'Hichem' a un Salaire de 4000 et 'Mohamed' ayant le salaire de 5000|
 
 ## Concurrence : Niveaux d'isolation des transactions
 
