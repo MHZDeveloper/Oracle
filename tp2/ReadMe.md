@@ -85,8 +85,8 @@ Biensûr, lorsqu'on parle de gestion de conccurence entre plusieurs transactions
 | t0 | ``` SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem');``` ||Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed' ou 'Hichem' en affichant seulement les colones ENAME et SAL de la Table EMP|
 | t1 | ``` UPDATE EMP SET SAL = 4000 WHERE ENAME ='Hichem'; ``` |------|Le Salaire (SAL) de Hichem sera modifié de 2000 à 4000, toute fois, sans commit, les modification ne sont pas prise en compte|
 | t2 | ------ |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```|Le Salaire de Mohamed va augmenter de 1000, ainsi passant de 2000 à 3000, toute fois, sans commit, les modification ne sont pas prise en compte |
-| t3 | ```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```|Aucun résultat car la dernière requete update exécuté par User2 n'a pas étée 'committed'||
-| t4 | ------ |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Hichem';```|La session 1 va detecter l'interblocage |
+| t3 | ```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```||Aucun résultat car la dernière requete update exécuté par User2 n'a pas étée 'committed'|
+| t4 | ------ |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Hichem';```|La session 1 va detecter l'interblocage / Avec affichage du message d'erreur :"deadlock detected while waiting for resource" à l'interface du User1|
 | t5 | ```Commit;``` |------| Session 2: --> 1 row updated.|
 | t6  |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```| ------|------|
 | t7 | ```Commit;```| ------ | --------|
