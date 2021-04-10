@@ -123,11 +123,11 @@ Autrement dit, le développeur déclare qu’une lecture va être suivie d’une
 | t4 | ------ |```UPDATE EMP SET SAL = 3800 WHERE ENAME ='Mohamed';```|Le Salaire (SAL) de Mohamed sera modifié à 3800, toute fois, sans commit, les modification ne sont pas prise en compte|
 | t5 | ```Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,COMM,DEPTNO) values ('9999','Maaoui','Magician',null,to_date('17/02/2021','DD/MM/RR'),null,'10');``` |------|Le nouveau employé nommé Maaoui, numéro 9999, sera ajouté à la liste des employées en tant que 'mAgIciAn'!! mais, cet ajout ne sera pas prit en compte tant qu'il n'y a pas de "commit;"|
 | t6 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP|
-| t7 | ------ |```UPDATE EMP SET SAL = 5000 WHERE ENAME ='Hichem';```|------|
-| t8 | ```Commit;``` |------|------|
-| t9 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|------|
-| t10| ------ |```COMMIT;```|------|
-| t11| ```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|------|------|
+| t7 | ------ |```UPDATE EMP SET SAL = 5000 WHERE ENAME ='Hichem';```|Aucun résultat car la dernière requête exécuté par User1 n'a pas étée 'committed'|
+| t8 | ```Commit;``` |------|L'employé 'Maoui' sera ajouté à la table EMP avec les champs mentionnées en t5 ( CLI du user1 ), et l'interface du 2ème utilisateur ( CLI du user 2 ) sera débloquée, sans prise en compte de sa modification apportée sans "commit;"|
+| t9 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP avec le salaire de 'Hichem' modifié à 5000, mais non 'committed'|
+| t10| ------ |```COMMIT;```|Le changement du salaire de 'Hichem' Sera prit en compte et il aura par ailleurs un salaire de 5000|
+| t11| ```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|------|Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed', 'Hichem' ou 'Maaoui' en affichant seulement les colones ENAME et SAL de la Table EMP avec 'Maaoui' toujours sans salaire..|
 
 
 
