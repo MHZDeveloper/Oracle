@@ -7,8 +7,8 @@ Vous trouverez dans ce [lien](https://docs.google.com/presentation/d/1f5uyqowZ7u
 ```
 DELETE FROM EMP WHERE ENAME IN ('Hichem','Mohamed');
 
-Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO) values ('1','Mohamed','PLEASE',null,to_date('17/11/81','DD/MM/RR'),'2000',null,'10');
-Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO) values ('2','Hichem','CRAFTSMAN',null,to_date('01/05/81','DD/MM/RR'),'2800',null,'10');
+Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO) values ('7839','Mohamed','PLEASE',null,to_date('17/11/81','DD/MM/RR'),'2000',null,'10');
+Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO) values ('7698','Hichem','CRAFTSMAN','7839',to_date('01/05/81','DD/MM/RR'),'2800',null,'10');
 ```
 
 ## Introduction
@@ -82,6 +82,7 @@ Biensûr, lorsqu'on parle de gestion de conccurence entre plusieurs transactions
 
 | Timing | Session N° 1 (User1)   | Session N° 2 (User2) |Résultat | 
 | :----: | :----: |:----:|:----:|
+
 | t0 | ``` SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem');``` ||Renvoie la liste des employés ayant le nom (ENAME) 'Mohamed' ou 'Hichem' en affichant seulement les colones ENAME et SAL de la Table EMP|
 | t1 | ``` UPDATE EMP SET SAL = 4000 WHERE ENAME ='Hichem'; ``` |------|Le Salaire (SAL) de Hichem sera modifié de 2000 à 4000, toute fois, sans commit, les modification ne sont pas prise en compte|
 | t2 | ------ |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```|Le Salaire de Mohamed va augmenter de 1000, ainsi passant de 2000 à 3000, toute fois, sans commit, les modification ne sont pas prise en compte |
@@ -91,6 +92,7 @@ Biensûr, lorsqu'on parle de gestion de conccurence entre plusieurs transactions
 | t6  |```UPDATE EMP SET SAL = SAL + 1000 WHERE ENAME ='Mohamed';```| ------|La requête ne sera pas exécutée en premier lieux et un autre interblocage aura lieux car, la permission de changement de table vien de passer à l'user2 avec que l'user1 ait mit la commande "commit;", par ailleurs, afin de poursuivre le traitement, on y ajoutera une commande "commit;" au CLI du 2ème utilisateur, ainsi, débloquer la modification que l'user1 veut y apporter.|
 | t7 | ```Commit;```| ------ | La modification du salaire de 'Mohamed' sera prise en compte, et il passera ainsi de 4000 à 5000 en SAL.|
 | t8 | ------ |```SELECT ENAME, SAL FROM EMP WHERE ENAME IN ('Mohamed','Hichem', 'Maaoui');```|Renvoie à tableau à 2 colonnes, ENAME et SAL, contenant les nom/salaires respectives de 'Mohamed' et 'Hichem' tel que 'Hichem' a un Salaire de 4000 et 'Mohamed' ayant le salaire de 5000|
+
 
 ## Concurrence : Niveaux d'isolation des transactions
 
