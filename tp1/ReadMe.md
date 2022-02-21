@@ -201,7 +201,7 @@ se terminant par l’une des deux instructions suivantes : **Commit / Rollback**
 Créer un SAVEPOINT après ce changement. 
 Par la suite, augmenter le salaire d'Hichem et recalculer la masse salariale (ne doit pas dépasser les 10 000) du département N°10 (celui d'Hichem et Mohamed) et appliquer les mesures nécessaires pour ne pas sauvegarder les changements qu'après la vérification que la masse est inférieure ou égale à 10000 avant de persister les changements d'une manière permanente.    
 
-PS : si vous n'avez pas les employés Mohamed et Hichem dans votre base de données, exécutez le code suivant : 
+- **PS :** si vous n'avez pas les employés Mohamed et Hichem dans votre base de données, exécutez le code suivant : 
 
 ```
 Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO) values ('7839','Mohamed','PLEASE',null,to_date('17/11/81','DD/MM/RR'),'2000',null,'10');
