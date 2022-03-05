@@ -272,8 +272,8 @@ GRANT Dev TO dev1 ;
 GRANT Dev TO dev2 ;
 ```
 ```sql
-GRANT  Test TO tester1 ;
-GRANT  Test TO tester2 ;
+GRANT  Tester TO tester1 ;
+GRANT  Tester TO tester2 ;
 ```
 ```sql
 GRANT DevSecOps TO  devsecops1 ;

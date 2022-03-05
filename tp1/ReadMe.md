@@ -204,9 +204,9 @@ Par la suite, augmenter le salaire d'Hichem et recalculer la masse salariale (ne
 - **PS :** si vous n'avez pas les employés Mohamed et Hichem dans votre base de données, exécutez le code suivant : 
 
 ```
-Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO) values ('7839','Mohamed','PLEASE',null,to_date('17/11/81','DD/MM/RR'),'2000',null,'10');
+Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO) values ('6999','Mohamed','PLEASE',null,to_date('17/11/81','DD/MM/RR'),'2000',null,'10');
 
-Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO) values ('7698','Hichem','CRAFTSMAN','7839',to_date('01/05/81','DD/MM/RR'),'2800',null,'10');
+Insert into EMP (EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO) values ('6998','Hichem','CRAFTSMAN','7839',to_date('01/05/81','DD/MM/RR'),'2800',null,'10');
 ```
 
 
@@ -250,3 +250,5 @@ COMMIT;
 END;
 /
 ```
+
+Pour exécuter ce script il suffit d'exécuter cette (en remplacant l'adresse absolue par l'adresse de votre fichier) **@adresse_absolue\script.sql**
